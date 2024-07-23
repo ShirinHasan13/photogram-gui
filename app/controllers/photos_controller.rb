@@ -20,6 +20,12 @@ class PhotosController < ApplicationController
         matching_photos = Photo.where({ :id => the_id })
         the_photo = matching_photos.at(0)
         the_photo.destroy
-    render({:template => "photo_templates/baii"})
+    #render({:template => "photo_templates/baii"})
+    redirect_to("/photos")
+end
+
+def create
+ # Parameters: {"query_image"=>"https://www.chicagobooth.edu/-/media/project/chicago-booth/why-booth/a-global-footprint/building-connections-across-asia/chicago-booth-hong-kong-location.jpg?cx=0.39&cy=0.55&cw=940&ch=749&hash=FE37658076B8C0C5FED3540E489CAE91", "query_caption"=>"b", "query_owner_id"=>"c"}
+  render({:template => "photo_templates/create"})
 end
 end
