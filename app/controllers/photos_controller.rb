@@ -25,7 +25,20 @@ class PhotosController < ApplicationController
 end
 
 def create
- # Parameters: {"query_image"=>"https://www.chicagobooth.edu/-/media/project/chicago-booth/why-booth/a-global-footprint/building-connections-across-asia/chicago-booth-hong-kong-location.jpg?cx=0.39&cy=0.55&cw=940&ch=749&hash=FE37658076B8C0C5FED3540E489CAE91", "query_caption"=>"b", "query_owner_id"=>"c"}
-  render({:template => "photo_templates/create"})
+ # Parameters: {"query_image"=>"https://www.chicagobooth.edu/-/media/project/chicago-booth/why-booth/a-global-footprint/building-connections-across-asia/chicago-booth-hong-kong-location.jpg?cx=0.39&cy=0.55&cw=940&ch=749&hash=FE37658076B8C0C5FED3540E489CAE91", "query_caption"=>"Chicago Booth", "query_owner_id"=>"117"}
+
+ input_image = params.fetch("query_image")
+ input_caption = params.fetch("query_caption")
+ input_owner_id = params.fetch("query_owner_id")
+
+ a_new_photo = Photo.new
+ a_new_photo.image = input_image
+ a_new_photo.caption = input_caption
+ a_new_photo.owner_id = input_owner_id
+ a_new_photo.save
+
+#render({:template => "photo_templates/create"})
+
+redirect_to("/photos/" + a_new_photo.id.to_s)
 end
 end
