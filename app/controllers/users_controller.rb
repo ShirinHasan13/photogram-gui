@@ -10,12 +10,12 @@ class UsersController < ApplicationController
     @new_user.username = params.fetch("username")
 
     if @new_user.save
-      redirect_to("/users")
+      redirect_to("/users/#{@new_user.username}")
     else
       render({ :template => "user_templates/index" })
     end
   end
-  
+
   def update
     user_id = params.fetch("id")
     the_user = User.where({ :id => user_id }).at(0)
