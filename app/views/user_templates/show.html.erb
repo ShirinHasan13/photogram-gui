@@ -1,39 +1,42 @@
+ <h1><%= @the_user.username %></h1>
 
-<h1><%= @the_user.username %></h1>
+ <dl>
+ <dt>ID</dt>
+ <dd><%= @the_user.id %></dd>
 
-<dl>
-<dt>ID</dt>
+ <dt>Edit user</dt>
+ <dd>
+   <form action="/users/update" method="post">
+     <label for="username">Username</label>
+     <input type="text" id="username" name="username" value="<%= @the_user.username %>">
+     <input type="hidden" name="id" value="<%= @the_user.id %>">
+     <input type="submit" value="Update">
+   </form>
+ </dd>
+ </dl>
 
-<dd><%= @the_user.id %></dd>
+ <h2>Own photos (<%= @the_user.own_photos.count %>)</h2>
 
-<dt>Edit user</dt>
-<dd>form goes here</dd>
-</dl>
+ <table border="1">
+ <tr>
+ <th>Image</th>
+ <th>Owner</th>
+ <th>Caption</th>
+ <th>Posted</th>
+ <th></th>
+ </tr>
 
-<h2>Own photos (<%= @the_user.own_photos.count %>)</h2>
-
-<table border="1">
-<tr>
-<th>Image</th>
-<th>Owner</th>
-<th>Caption</th>
-<th>Posted</th>
-<th></th>
-</tr>
-
-<% @the_user.own_photos.each do |a_photo| %>
-<tr>
-<td>
-<img src="<%= a_photo.image %>"> 
-</td>
-<td>
-<%#= User.where({ :id => a_photo.owner_id }).at(0).username %>
-<%= a_photo.poster.username %>
-</td>
-<td><%= a_photo.caption %></td>
-<td><%= a_photo.created_at %></td>
-<td>Show details</td>
-</tr>
-<% end %>
-
-</table>
+ <% @the_user.own_photos.each do |a_photo| %>
+ <tr>
+ <td>
+ <img src="<%= a_photo.image %>"> 
+ </td>
+ <td>
+ <%= a_photo.poster.username %>
+ </td>
+ <td><%= a_photo.caption %></td>
+ <td><%= a_photo.created_at %></td>
+ <td>Show details</td>
+ </tr>
+ <% end %>
+ </table>
