@@ -5,6 +5,17 @@ class UsersController < ApplicationController
     render({:template => "user_templates/index"})
   end
 
+  def create
+    @new_user = User.new
+    @new_user.username = params.fetch("username")
+
+    if @new_user.save
+      redirect_to("/users")
+    else
+      render({ :template => "user_templates/index" })
+    end
+  end
+  
   def update
     user_id = params.fetch("id")
     the_user = User.where({ :id => user_id }).at(0)
@@ -14,7 +25,7 @@ class UsersController < ApplicationController
 
     redirect_to("/users/#{user_id}")
   end
-  
+
   def show
     # Parameters: {"path_username"=>"anisa"}
     url_username = params.fetch("path_username")
